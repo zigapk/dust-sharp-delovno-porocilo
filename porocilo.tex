@@ -42,14 +42,17 @@
 
 \section{Uvod}
 \todo{prvo stran moram "se dokoncati}
-\todo{vsem grafom moram dodati enote in jih spremeniti v pdf}
 
 Cilj projekta je razviti cenovno ugoden sistem za opravljanje meritev koncentracije trdnih delcev v zraku ter oceniti njegovo negotovost. Za ta namen je bilo izbrano tipalo GP2Y1010AU0F podjetja Sharp \cite{sharp-gp2y1010au0f}. To je opti"cni senzor, ki za delovanje izkori"s"ca odvisnost med koli"cino sipane svetlobe pri potovanju skozi medij in koncentracijo delcev.
 
-\todo{Izbran je bil ta in ta senzor zato in zato...}
-\todo{vec teksta, kaj vse je poleg senzorja bilo uporabljeno}
-\todo{ena slikca setupa}
-\todo{kaj je bilo ze, kaj je moj del}
+\vspace{3cm}
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[width=10cm]{setup_view.jpg}
+		\caption{Raspberry Pi s priklju"cenim tipalom Sharp GP2Y1010AU0F}
+		\label{setup-view}
+	\end{center}
+\end{figure}
 
 \pagebreak
 
@@ -163,8 +166,6 @@ Do zdaj smo pri zajemanju podatkov za vrh pulza vzeli kar najvi"sjo izmerjeno to
 Navkljub vsem izbolj"savam meritve ostajajo polne "suma. Da bi to kvantificirali, postavimo tipalo v vakuum ter popolno temo. S tem "zelimo odstraniti vse zunanje dejavnike ter izmeriti izklju"cno odboj svetlobe od ohi"sja. Napaka meritve v tem primeru prihaja iz negotovosti pri od"citavanju ter neenakomernih pulzov LED.
 
 Razlike med meritvami na prostem in v $ 15mbar $ vakuumu ne zaznamo. Sklepamo, da potrebujemo "se ni"zji pritisk.
-
-\todo{slikca iz vakuuma mogoce?}
 
 \subsection{Analiza podatkov}
 Analiza podatkov poteka na lo"cenem ra"cunalniku in ni del naprave za opravljanje meritev. Obstoje"ci sistem za obdelavo meritev povpre"ci vi"sine vrhov pulzov v "zelenem "casovnem obdobju (nekaj 10 minut). Rezultate skupaj z meritvami, opravljenimi z merilnikom Grimm mini-LAS, nari"se na graf. Posebne korelacije ne opazimo. Da bi to kvantificirali, korelacijo tudi izra"cunamo. Ta je majhna - za ve"cino en dan trajajo"cih meritev je njena vrednost pod 0,5, kar ni uporabno.
