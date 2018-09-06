@@ -28,7 +28,7 @@
 
 \begin{document}
 
-\title{Nadgradnja sistema za merjenje koncentracije trdnih delcev v zraku s tipalom Sharp GP2Y1010AU0F}
+\title{Karakterizacija sistema za merjenje koncentracije trdnih delcev v zraku s tipalom Sharp GP2Y1010AU0F}
 \author{"Ziga Pata"cko Koderman \and Klemen Bu"car}
 \date{\today}
 
@@ -52,7 +52,7 @@ Cilj projekta je razviti cenovno ugoden sistem za opravljanje meritev koncentrac
 
 \pagebreak
 
-\section{Obstoje"ca konfiguracija}
+\section{Tipalo Sharp GP2Y1010AU0F}
 
 Tipalo Sharp GP2Y1010AU0F \cite{sharp-gp2y1010au0f} sestavljata infrarde"ca LED, ki v pulzih emitira IR svetlobo, ter fototranzistor za detekcijo sipane svetlobe. Oba sta zaprta v ohi"sje in postavljena v kota ob isti stranici tako, da svetloba iz diode ne prehaja neposredno na fototranzistor (slika \ref{sensor-scheme}). Meritev opravimo tako, da LED vklopimo s kratkim pulzom preko RC vezja ter opazujemo odziv fototranzistorja, ki je posledica:
 \begin{itemize}
@@ -68,19 +68,19 @@ Tipalo Sharp GP2Y1010AU0F \cite{sharp-gp2y1010au0f} sestavljata infrarde"ca LED,
 	\end{center}
 \end{figure}
 
-Proizvajalec tipala priporo"ca, naj za pro"zenje IR LED uporabimo RC vezje z $220\ \mu f $ kondenzatorjem in $150\ \Omega $ uporom \cite{sharp-gp2y1010au0f}. Karakteristi"cni "cas takega vezja je
+Proizvajalec tipala priporo"ca, naj za pro"zenje IR LED uporabimo RC vezje z 220\,$\mu$f kondenzatorjem in 150\,$\Omega$ uporom \cite{sharp-gp2y1010au0f}. Karakteristi"cni "cas takega vezja je
 
 $$
-\uptau = RC = 0,033\ s
+\uptau = RC = 0,033\,s
 $$
 
 Po vsakem pulzu LED moramo vezje spet napolniti, za kar porabimo nekaj karakteristi"cnih "casov. Predpostavimo, da trije karakteristi"cni "casi zadostujejo.
 
 $$
-\nu = \frac{1}{t_0} \approx \frac{1}{3 \uptau} = 10\ \Hz
+\nu = \frac{1}{t_0} \approx \frac{1}{3 \uptau} = 10\,\Hz
 $$
 
-Meritve lahko torej opravljamo s frekvenco najve"c $ 10\ \Hz $. Vsakokrat opazujemo odziv fototranzistorja. To je napetostni impulz, ki ga vzor"cimo z 10-bitnim ADC (ang. \textit{analog to digital}) pretvornikom MCP3002 \cite{mcp3002}, in dobimo njegovo digitalno obliko.
+Meritve lahko torej opravljamo s frekvenco najve"c 10\,Hz. Vsakokrat opazujemo odziv fototranzistorja. To je napetostni impulz, ki ga vzor"cimo z 10-bitnim ADC (ang. \textit{analog to digital}) pretvornikom MCP3002 \cite{mcp3002}, in dobimo njegovo digitalno obliko.
 
 Celoten proces, ki zajema:
 \begin{itemize}
@@ -99,9 +99,9 @@ krmili mikrora"cunalnik Raspberry Pi \cite{rbpi-wiki}.
 	\end{center}
 \end{figure}
 
-Prebrani pulz vzor"cimo s frekvenco $ \approx 35,7\ \kHz $ (kolikor zmore Raspberry Pi) ter ga shranimo kot mno"zico 50 to"ck, v tabelo znotraj HDF5 datoteke \cite{hdf5}.
+Prebrani pulz vzor"cimo s frekvenco $ \approx $ 35,7\,kHz (kolikor zmore Raspberry Pi) ter ga shranimo kot mno"zico 50 to"ck, v tabelo znotraj HDF5 datoteke \cite{hdf5}.
 
-Proizvajalec priporo"ca, da napetost na fototranzistorju od"citamo $0,28\ ms$ po vklopu LED. Kljub temu na"s sistem zajema odziv fototranzistorja $ 1,4\ ms $ od vklopa LED. "Cas $0,28\ ms$ sovpada z vrhovi izmerjenih pulzov, tako da predvidevamo, da v resnici i"s"cemo vrh pulza. 
+Proizvajalec priporo"ca, da napetost na fototranzistorju od"citamo 0,28\,ms po vklopu LED. Kljub temu na"s sistem zajema odziv fototranzistorja 1,4\,ms od vklopa LED. "Cas 0,28\,ms sovpada z vrhovi izmerjenih pulzov, tako da predvidevamo, da v resnici i"s"cemo vrh pulza. 
 
 \begin{figure}[H]
 	\begin{center}
@@ -111,7 +111,7 @@ Proizvajalec priporo"ca, da napetost na fototranzistorju od"citamo $0,28\ ms$ po
 	\end{center}
 \end{figure}
 
-S slike \ref{pulses-old} je razvidno, da vzorci pulzov med seboj niso preve"c podobni. Vrhovi so zelo razpr"seni in odstopajo za $ \approx \pm 40\ \% $.
+S slike \ref{pulses-old} je razvidno, da vzorci pulzov med seboj niso preve"c podobni. Vrhovi so zelo razpr"seni in odstopajo za $ \approx \pm $ 40\,\%.
 
 Meritve primerjamo tudi z meritvami, opravljenimi z referen"cnim tipalom Grimm Mini-LAS 11-R \cite{grimm-min-las}. Korelacijo med vi"sinami izmerjenih vrhov in podatki tipala Grimm opazimo "sele po zelo obse"znem povpre"cenju nekaj 1000 vrhov, "se ta pa ostaja manj"sa od negotovosti meritve.
 
@@ -158,7 +158,7 @@ Razlike med meritvami na prostem in v $ 15mbar $ vakuumu ne zaznamo. Sklepamo, d
 \todo{slikca iz vakuuma mogoce?}
 
 \subsection{Nadgradnja analize podatkov}
-Analiza podatkov poteka na lo"cenem ra"cunalniku in ni del naprave za opravljanje meritev. Obstoje"ci sistem za obdelavo meritev povpre"ci vi"sine vrhov pulzov v "zelenem "casovnem obdobju (nekaj 10 minut). Rezultate skupaj z meritvami, opravljenimi z merilnikom Grimm mini-LAS, nari"se na graf. Posebne korelacije ne opazimo. Da bi to kvantificirali, korelacijo tudi izra"cunamo  \todo{manka vir iz knjige k je na IJS-ju}. Ta je majhna - za ve"cino en dan trajajo"cih meritev je njena vrednost pod $0,5$, kar ni uporabno.
+Analiza podatkov poteka na lo"cenem ra"cunalniku in ni del naprave za opravljanje meritev. Obstoje"ci sistem za obdelavo meritev povpre"ci vi"sine vrhov pulzov v "zelenem "casovnem obdobju (nekaj 10 minut). Rezultate skupaj z meritvami, opravljenimi z merilnikom Grimm mini-LAS, nari"se na graf. Posebne korelacije ne opazimo. Da bi to kvantificirali, korelacijo tudi izra"cunamo  \todo{manka vir iz knjige k je na IJS-ju}. Ta je majhna - za ve"cino en dan trajajo"cih meritev je njena vrednost pod 0,5, kar ni uporabno.
 
 
 \subsubsection{Knji"znica za obdelavo podatkov}
@@ -195,7 +195,7 @@ Program "steje pulze v spreminjajo"cem se intervalu ter jih primerja z meritvami
 \end{table}
 \todo{vnesi pravo tabelo}
 
-Vi"sji pulzi bolje korelirajo z gostoto manj"sih delcev, ni"zji pulzi pa obratno. Korelacije, ki se gibljejo okoli $0,9$, so zadovoljive in potrjujejo tezo, da velikost delca v veliki meri vpliva na vi"sino izmerjenega pulza.
+Vi"sji pulzi bolje korelirajo z gostoto manj"sih delcev, ni"zji pulzi pa obratno. Korelacije, ki se gibljejo okoli 0,9, so zadovoljive in potrjujejo tezo, da velikost delca v veliki meri vpliva na vi"sino izmerjenega pulza.
 \todo{tabela se racuna ze en dan, tako da bom pocakal da jo najprej vidim in potem pokomentiram}
 
 \clearpage
