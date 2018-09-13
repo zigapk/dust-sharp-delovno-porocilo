@@ -29,37 +29,52 @@
 
 \begin{document}
 
-\title{Karakterizacija sistema za merjenje koncentracije trdnih delcev v zraku s tipalom Sharp GP2Y1010AU0F}
-\author{"Ziga Pata"cko Koderman \and Klemen Bu"car}
-\date{\today}
+\title{Karakterizacija izhodnih pulzov senzorja Sharp GP2Y1010AU0F pri meritvah koncentracije aerosolov v zraku}
+\author{"Ziga Pata"cko Koderman$^1$ \and Klemen Bu"car$^2$}
+\date{%
+  $^1$FMF, Oddelek za fiziko, Univerza v Ljubljani\\
+  $^2$Institut Jožef Stefan, Ljubljana\\[3ex]
+  Izdaja: Ljubljana, \today
+}
 
-\clearpage\maketitle
+\maketitle
 \thispagestyle{empty}
-\pagebreak
+
+\begin{center}
+IJS delovno poro"cilo\\ IJS-DP-xxxxxx
+\end{center}
 
 \tableofcontents
 \pagebreak
 
-\section{Uvod}
-\todo{prvo stran moram "se dokoncati}
+\section{Povzetek}
 
-Cilj projekta je razviti cenovno ugoden sistem za opravljanje meritev koncentracije trdnih delcev v zraku ter oceniti njegovo negotovost. Za ta namen je bilo izbrano tipalo GP2Y1010AU0F podjetja Sharp \cite{sharp-gp2y1010au0f}. To je opti"cni senzor, ki za delovanje izkori"s"ca odvisnost med koli"cino sipane svetlobe pri potovanju skozi medij in koncentracijo delcev.
+Nadzor kvaliete zraka v notranjih in zunanjih prostorih postaja čedalje pomembnejši tako zaradi naravovarstvenega kot tudi zdravstvenega vidika. Certificirane naprave, ki določajo koncentracijo aerosolnih delcev v zraku so še vedno izjemno drage in nedostopne, po drugi strani pa se pojavljajo ceneni, večinoma optični senzorji, ki obljubljajo meritev koncentracije aerosolnih delcev v zraku.
 
-\vspace{3cm}
-\begin{figure}[H]
+Opazovanje aerosolov neposredno s sipanjem infrardeče svetlobe je precej nezanesljivo, saj je količina odbite svetlobe odvisna ne samo od velikosti in števila delcev v opazovanem volumnu, pač pa tudi od njihove sestave (albeda). Teoretični opis sipanja svetlobe na delcih, ki imajo velikost primerljivo valovni dolžini svetlobe, opisuje t.i.~Miejevo sipanje \cite{miejevo}.\todo{link iz Wikipedije.}
+
+Cilj projekta je bil karakterizirati poceni optični senzor in ugotoviti, v kakšni meri se ga uporabiti za ocenjevanje koncentracije aerosolov v zraku. Za ta namen je bilo izbrano tipalo GP2Y1010AU0F podjetja Sharp \cite{sharp-gp2y1010au0f},
+ki spada med pulzne optične senzorje in je zato primeren tudi za mobilno delo in baterijsko napajanje. 
+
+Projekt je v okviru študentskega dela opravil Žiga Patačko Koderman (programi za analizo podatkov, analiziranje podatkov, meritve v vakuumu). Na projektu je v 2017 delala tudi Aurora Makovac (programi za zajemanje in shranjevanje meritev).
+
+ Slepa meritev PM2.5 in PM10 po navodilih proizvajalca modula ne vrne smiselnih rezultatov.
+V projektu je bilo ugotovljeno, da izbrano tipalo bolje zazna majhne delce ($d < 1\,\mu$m) v primerjavi z večjimi. Z ločevanjem pulzev po višini in ustreznim filtriranjem je možno dobiti boljšo korelacijo z referenčnim instrumentom. Dodatno bo potrebno opraviti meritve ozadja in preveriti stabilnost LED pulzov (na primer meritve v boljšem vakuumu, meritve LED bliskov z zunanjim spektrometrom). 
+
+\begin{figure}[bh!]
 	\begin{center}
-		\includegraphics[width=10cm]{setup_view.jpg}
+		\includegraphics[width=8cm]{setup_view.jpg}
 		\caption{Raspberry Pi s priklju"cenim tipalom Sharp GP2Y1010AU0F}
 		\label{setup-view}
 	\end{center}
 \end{figure}
 
-\pagebreak
+\newpage
+\section{Opis tipala Sharp GP2Y1010AU0F}
 
-\section{Tipalo Sharp GP2Y1010AU0F}
-
-Tipalo Sharp GP2Y1010AU0F \cite{sharp-gp2y1010au0f} sestavljata infrarde"ca LED, ki v pulzih emitira IR svetlobo, ter fototranzistor za detekcijo sipane svetlobe. Oba sta zaprta v ohi"sje in postavljena v kota ob isti stranici tako, da svetloba iz diode ne prehaja neposredno na fototranzistor (slika \ref{sensor-scheme}). Meritev opravimo tako, da LED vklopimo s kratkim pulzom preko RC vezja ter opazujemo odziv fototranzistorja, ki je posledica:
+Tipalo Sharp GP2Y1010AU0F \cite{sharp-gp2y1010au0f} sestavljata LED, ki oddaja IR svetlobo, ter fototranzistor za detekcijo sipane svetlobe. Oba sta zaprta v ohi"sje in postavljena v kota ob isti stranici tako, da svetloba iz diode ne prehaja neposredno na fototranzistor (slika \ref{sensor-scheme}). Odziv fototranzistorja je posledica:
 \begin{itemize}
+	\item sipanja na aerosolih,
 	\item odboja svetlobe od notranjih sten ohi"sja in
 	\item sipanja svetlobe pri potovanju skozi medij.
 \end{itemize}
@@ -72,21 +87,25 @@ Tipalo Sharp GP2Y1010AU0F \cite{sharp-gp2y1010au0f} sestavljata infrarde"ca LED,
 	\end{center}
 \end{figure}
 
-Proizvajalec tipala priporo"ca, naj za pro"zenje IR LED uporabimo RC vezje z 220\,$\mu$f kondenzatorjem in 150\,$\Omega$ uporom \cite{sharp-gp2y1010au0f}. Karakteristi"cni "cas takega vezja je
+Diodo prožimo s kratkim logičnim pulzom na vhodu 3 (slika \ref{integration-scheme}). 
+Proizvajalec tipala priporo"ca \cite{sharp-gp2y1010au0f} napajanje IR LED preko RC vezja ($C=220\,\mu$F, $R=150\,\Omega$), s čimer omejimo dolgotrajni tok skozi diodo.  
+Karakteristi"cni "cas takega vezja je
 
 $$
 \uptau = RC = 0,033\,s
 $$
 
-Po vsakem pulzu LED moramo vezje spet napolniti, za kar porabimo nekaj karakteristi"cnih "casov. Predpostavimo, da trije karakteristi"cni "casi zadostujejo.
+Kar nam omeji frekvenco delovanja na približno (pustimo tri karakteristi"cne "case za napolnjenje kondenzatorja):
 
 $$
 \nu = \frac{1}{t_0} \approx \frac{1}{3 \uptau} = 10\,\Hz
 $$
 
-Meritve lahko torej opravljamo s frekvenco najve"c 10\,Hz. RC vezje nam s tem prepre"cuje, da bi LED preobremenili s tokom.
+Po vsakem pulzu LED opazujemo odziv fototranzistorja, ki je ustrezno ojačan in oblikovan z vezjem, o katerem pa proizvajalec modula ne poda dodatnih informacij. Proizvajalec kot merilo za koncentracijo aerosolnih delcev podaja napetost na izhodu v določenem trenutku, to je 280\,$\mu$s po sprožitvi pulza na LED.
+ "Cas 0,28\,ms približno sovpada z vrhovi izmerjenih izhodnih pulzov, tako da predvidevamo, da je v resnici merilo za koncentracijo aerosolnih delcev kar višina izhodnega pulza. 
+\todo{slika iz PDF proizvajalca}
+Za boljšo karakterizacijo izhodnih pulzov smo želeli shraniti njihove oblike. V ta namen smo izhod senzorja vzor"cili z 10-bitnim ADC (ang. \textit{analog to digital}) pretvornikom MCP3002 \cite{mcp3002}.
 
-Po vsakem pulzu LED opazujemo odziv fototranzistorja. To je napetostni impulz, ki ga vzor"cimo z 10-bitnim ADC (ang. \textit{analog to digital}) pretvornikom MCP3002 \cite{mcp3002}, in dobimo njegovo digitalno obliko.
 
 \begin{figure}[H]
 	\begin{center}
@@ -103,37 +122,33 @@ Celoten proces, ki zajema:
 	\item shranjevanje meritev,
 \end{itemize}
 
-krmili mikrora"cunalnik Raspberry Pi \cite{rbpi-wiki}. Meritvam pripi"semo tudi datum in "cas merjenja. V ta namen uporabimo "se RTC (ang. \textit{real time clock}) modul, saj Raspberry Pi sam tega nima.
+krmili mikrora"cunalnik Raspberry Pi \cite{rbpi-wiki}. Meritvam pripi"semo tudi datum in "cas merjenja. V ta namen uporabimo "se RTC (ang. \textit{real time clock}) modul, saj Raspberry Pi nima baterijskega napajanja, ki bi zagotavljalo pravilno uro tudi po izklopu napajanja. Elektronska shema vezja je na sliki \ref{sl:shema-vezja}.
+Največja hitrost vzorčenja oblike pulza, ki jo upemo doseči, je $ \approx $ 35,7\,kHz. Vzorčene vrednosti posameznega pulza shranimo kot mno"zico 50 to"ck, v tabelo znotraj HDF5 datoteke \cite{hdf5}.
 
 
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[width=12cm]{scheme.png}
 		\caption{Shema vezja}
+		\label{sl:shema-vezja}
 	\end{center}
 \end{figure}
 
-Prebrani pulz vzor"cimo s frekvenco $ \approx $ 35,7\,kHz (kolikor zmore Raspberry Pi) ter ga shranimo kot mno"zico 50 to"ck, v tabelo znotraj HDF5 datoteke \cite{hdf5}.
-
-Proizvajalec priporo"ca, da napetost na fototranzistorju od"citamo 0,28\,ms po vklopu LED. Kljub temu na"s sistem zajema odziv fototranzistorja 1,4\,ms od vklopa LED. "Cas 0,28\,ms sovpada z vrhovi izmerjenih pulzov, tako da predvidevamo, da v resnici i"s"cemo vrh pulza. 
 
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[width=12cm]{pulses_old.png}
-		\caption{Primer 10 odzivov fototranzistorja pri vzor"cenju 50 to"ck}
+		\caption{Primer 10 odzivov fototranzistorja pri vzor"cenju 50 to"ck pri nepretrganem zaporednem vzorčenju. Opazimo izgubo vzorčevalnih točk in spremenjeno obliko nekaterih pulzov.}
 		\label{pulses-old}
 	\end{center}
 \end{figure}
 
-S slike \ref{pulses-old} je razvidno, da vzorci pulzov med seboj niso preve"c podobni. Vrhovi so zelo razpr"seni in odstopajo za $ \approx \pm $ 40\,\%.
-
 \clearpage
 
-\section{Izhod iz tipala}
-Zaradi neuporabnosti obstoje"cih meritev se odlo"cimo za sistemati"cno analizo in nadgradnjo obstoje"cega sistema za zajem in analizo vzorcev.
+\section{Izhodni signali tipala}
 
-\subsection{Neenakomerno vzor"cenje}
-Zaradi variabilne obremenitve procesorja na krmilniku Raspberry Pi dobi proces za zajemanje meritve spremenljivo koli"cino procesorskega "casa. To"ck na pulzu torej ne od"citavamo z enakomerno frekvenco. Odstopanja odpravimo tako, da vsaki to"cki dodamo "casovni "zig.
+\subsection{Digitalno vzor"cenje}
+Zaradi variabilne obremenitve procesorja na krmilniku Raspberry Pi dobi proces za zajemanje meritve spremenljivo koli"cino procesorskega "casa. Z neprekinjenim vzorčenjem to"ck na pulzu torej ne od"citavamo z enakomerno frekvenco in prihaja do časovnih zamikov med posameznimi točkami (slika \ref{pulses-old}). Odstopanja odpravimo tako, da vsaki to"cki ob vzorčenju dodamo mikrosekundni "casovni "zig in s tem pulze poravnamo (slika \ref{aligned}).
 
 \begin{figure}[H]
 	\begin{center}
@@ -143,13 +158,11 @@ Zaradi variabilne obremenitve procesorja na krmilniku Raspberry Pi dobi proces z
 	\end{center}
 \end{figure}
 
-Ko to"cke poravnamo relativno na "cas v"ziga LED, opazimo precej lep"so poravnavo vrhov (slika \ref{aligned}).
-
 \subsection{Velikost vzorca}
-Pri opravljanju meritve ne poznamo natan"cnega pretoka zraka skozi tipalo. Zana"samo se na konvekcijsko gibanje zraka. Da preverimo, ali to zadostuje za potrebe meritve, pretok prisilno pove"camo z ventilatorjem ter opazujemo morebitne spremembe. Ne opazimo nobenih sprememb ter sklepamo, da je konvekcijski pretok zraka dovolj"sen.
+Pri opravljanju meritve ne poznamo natan"cnega pretoka zraka skozi tipalo. Zana"samo se na konvekcijsko gibanje zraka. Da preverimo, ali to zadostuje za potrebe meritve, pretok prisilno pove"camo z ventilatorjem ter opazujemo morebitne spremembe. Ne opazimo nobenih sprememb ter sklepamo, da je konvekcijski pretok zraka dovolj"sen. Pri našem tipu meritve, kjer ves čas opazujemo enak volumen zraka, je gibanje zraka pomembno le za zagotavljenje prave koncentracije delcev v opazovanem volumnu. 
 
 \subsection{Svetlobne motnje iz okolice}
-Ohi"sje tipala je odprto, da lahko skozenj te"ce zrak. To pa fototranzistor v tipalu izpostavi zunanjim svetlobnim virom. Ti lahko na meritve vplivajo v obliki "suma ali sistemati"cne napake (na primer razlika med dnevom in no"cjo). To preverimo s postavitvijo tipala v popolno temo. Opazimo, da so vrhovi pulzov poravnani bistveno bolje (slika \ref{dark}). Meritve od tu naprej opravljamo v temi.
+Ohi"sje tipala je odprto, da lahko skozenj te"ce zrak. To pa fototranzistor v tipalu izpostavi zunanjim svetlobnim virom. Ti lahko na meritve vplivajo v obliki "suma ali sistemati"cne napake (na primer razlika med dnevom in no"cjo). To preverimo s postavitvijo tipala v popolno temo. Opazimo, da so vrhovi pulzov poravnani bistveno bolje (slika \ref{dark}). 
 
 \begin{figure}[H]
 	\begin{center}
@@ -160,15 +173,20 @@ Ohi"sje tipala je odprto, da lahko skozenj te"ce zrak. To pa fototranzistor v ti
 \end{figure}
 
 \subsection{Dolo"canje vrha}
-Do zdaj smo pri zajemanju podatkov za vrh pulza vzeli kar najvi"sjo izmerjeno to"cko. Ta pa zaradi premajhne frekvence vzor"cenja nikoli ne sovpada popolnima s pravim vrhom. Napako odpravimo z napenjanjem parabole na najvi"sjih nekaj to"ck. Vsak pulz zajema pribli"zno med 10 in 20 to"ck, tako da se odlo"cimo za napenjanje parabole na najvi"sjih 7.
+Najvi"sja izmerjena to"cka pulza zaradi premajhne frekvence vzor"cenja ne sovpada vedno s pravim vrhom pulza. 
+Meritev izboljšamo z napenjanjem parabole na najvi"sjih nekaj to"ck. Vsak pulz zajema pribli"zno med 10 in 20 to"ck, tako da se odlo"cimo za napenjanje parabole na najvi"sjih 7.
 
 \subsection{Meritve v vakuumu}
-Navkljub vsem izbolj"savam meritve ostajajo polne "suma. Da bi to kvantificirali, postavimo tipalo v vakuum ter popolno temo. S tem "zelimo odstraniti vse zunanje dejavnike ter izmeriti izklju"cno odboj svetlobe od ohi"sja. Napaka meritve v tem primeru prihaja iz negotovosti pri od"citavanju ter neenakomernih pulzov LED.
+Tipalo postavimo v vakuum ter popolno temo. S tem "zelimo odstraniti vse zunanje dejavnike ter izmeriti izklju"cno odboj svetlobe od ohi"sja. Razsutost meritev v tem primeru prihaja iz negotovosti pri od"citavanju ter neenakomerno svetlih pulzov LED.
 
-Razlike med meritvami na prostem in v $ 15mbar $ vakuumu ne zaznamo. Sklepamo, da potrebujemo "se ni"zji pritisk.
+Razlike med meritvami na prostem in v vakuumu ($p$=15\,mbar) ne zaznamo. Sklepamo, da potrebujemo "se ni"zji pritisk.
 
 \subsection{Analiza podatkov}
-Analiza podatkov poteka na lo"cenem ra"cunalniku in ni del naprave za opravljanje meritev. Obstoje"ci sistem za obdelavo meritev povpre"ci vi"sine vrhov pulzov v "zelenem "casovnem obdobju (nekaj 10 minut). Rezultate skupaj z meritvami, opravljenimi z merilnikom Grimm mini-LAS, nari"se na graf. Posebne korelacije ne opazimo. Da bi to kvantificirali, korelacijo tudi izra"cunamo. Ta je majhna - za ve"cino en dan trajajo"cih meritev je njena vrednost pod 0,5, kar ni uporabno.
+
+Približno višino izmerjenih sunkov in desetminutno povprečje računa naprava za zajemanje meritev sproti in prikazuje na zaslonu. 
+Natančnejša analiza podatkov poteka kasneje na lo"cenem ra"cunalniku.  Obstoje"ci sistem za obdelavo meritev povpre"ci vi"sine vrhov pulzov v "zelenem "casovnem obdobju (nekaj 10 minut).
+
+% Rezultate skupaj z meritvami, opravljenimi z merilnikom Grimm mini-LAS, nari"se na graf. Posebne korelacije ne opazimo. Da bi to kvantificirali, korelacijo tudi izra"cunamo. Ta je majhna - za ve"cino en dan trajajo"cih meritev je njena vrednost pod 0,5, kar ni uporabno.
 
 \subsubsection{Knji"znica za obdelavo podatkov}
 Za hitrej"so in la"zjo analizo podatkov je bilo ve"c manj"sih programov zdru"zenih v Python knji"znico po imenu \codeword{Analysis}. Ta je zelo prilagodljiva in uporabniku omogo"ca nalaganje podatkov o pulzih iz hdf5 \cite{hdf5} datotek in risanje grafov s samo nekaj ukazi.
@@ -236,8 +254,8 @@ Odziv fototranzistorja na pulz LED ni odvisen samo od gostote trdnih delcev v zr
 Program "steje pulze v spreminjajo"cem se intervalu ter jih primerja z meritvami razli"cno velikih delcev. Tako poi"s"ce intervale, ki najbolj ustrezajo posameznim velikostim delcev iz meritev referen"cnega tipala. Rezultati so razvidni iz tabele \ref{table:correlations}.
 
 \clearpage
-\section{Primerjava z referen"cnim tipalom}
-Da karakteriziramo natan"cnost merilnega sistema, mertive primerjamo z referen"cnim tipalom Grimm Mini-LAS 11-R \cite{grimm-min-las}. To tipalo meri koncenctracije trdnih delcev posamzenih velikosti v zraku.
+\section{Primerjava z referen"cnim instrumentom}
+Dobljene mertive primerjamo z referen"cnim instrumentom Grimm Mini-LAS 11-R \cite{grimm-min-las}. Ta instrument vrne koncenctracije trdnih delcev po posamzenih velikostih.
 
 Korelacije med osnovnimi meritvami in meritvami referen"cnega tipala se gibljejo okoli 0,7. Primer grafa je viden na sliki \ref{comparison}.
 
@@ -249,7 +267,7 @@ Korelacije med osnovnimi meritvami in meritvami referen"cnega tipala se gibljejo
 	\end{center}
 \end{figure}
 
-Za analizo uporabimo "se prej opisano metodo "stetja vrhov na posameznem intervalu. Program izpi"se tabelo \ref{table:correlations}, iz katere je razvidno, da z "stetjem vrhov na pravem intervalu dobimo korelacije, ki presegajo 0,9. To potrjuje tezoMeritve tipala Sharp GP2Y1010AU0F najbolje korelirajo z koncentracijami delcev velikosti med 0,25 in 0,50\,$\mu$m. 
+Za analizo uporabimo "se prej opisano metodo "stetja vrhov na posameznem intervalu. Program izpi"se tabelo \ref{table:correlations}, iz katere je razvidno, da s "stetjem vrhov na pravem intervalu dobimo korelacije, ki presegajo 0,9. To potrjuje tezo, da se meritve tipala Sharp GP2Y1010AU0F najbolje korelirajo z koncentracijami delcev velikosti med 0,25 in 0,50\,$\mu$m. 
 
 \begin{table}[H]
 	\centering
@@ -305,7 +323,12 @@ Za analizo uporabimo "se prej opisano metodo "stetja vrhov na posameznem interva
 
 \begin{appendices}
 	\section{Izvorna koda}
-	\todo{potrebujem izvorno kodo kot prilogo?}
+
+Programska koda za proženje svetlobnega bliska, zajemanje meritve in shranjevanje v datoteko teče na plošči RaspberryPi in je pisana v programskem jeziku C.
+Obdelavo shranjenih meritv opravimo s kodo pisano v programskem jeziku Python. 
+Vsa izvorna koda je na voljo pri avtorjih (\emph{klemen.bucar@ijs.si}).
+
+
 \end{appendices}
 \clearpage
 
