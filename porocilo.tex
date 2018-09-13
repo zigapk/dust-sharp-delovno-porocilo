@@ -255,7 +255,9 @@ import json_tricks
 with open('dump.json', 'r') as f:
 	measurements = json_tricks.loads(f.read())
 
-# plot risanje grafov
+# risanje grafov
+# 'rbpi3', '0.28 um' ter
+# '0.40 um' so kljuci meritev, shranjenih v slovarju
 analysis.plot_average_over_time(
 		[measurements['0.28 um'],
 		measurements['0.40 um'],
@@ -266,6 +268,12 @@ analysis.plot_average_over_time(
 	\caption{Primer izvorne kode za nalagane obdelanih podatkov iz datoteke dump.json ter risanje grafov}
 	\label{plot-data}
 \end{figure}
+
+Knji"znica vsebuje tudi funkcijo zara"cunanje korelacije med posameznimi meritvami. Ta je definirana kot produkt posameznih vrednosti, normiran glede na povpre"cno vrednost:
+
+$$
+r = \frac{\sum_{i=1}^{n} (x_i - \overline{x}) (y_i - \overline{y})}{\sqrt{\sum_{i=1}^{n} (x_i - \overline{x})^2} \sqrt{\sum_{i=1}^{n} (y_i - \overline{y})^2}}
+$$
 
 
 \subsubsection{Histogramska analiza}
