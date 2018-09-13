@@ -51,7 +51,7 @@ IJS delovno poro"cilo\\ IJS-DP-xxxxxx
 
 Nadzor kvaliete zraka v notranjih in zunanjih prostorih postaja čedalje pomembnejši tako zaradi naravovarstvenega kot tudi zdravstvenega vidika. Certificirane naprave, ki določajo koncentracijo aerosolnih delcev v zraku so še vedno izjemno drage in nedostopne, po drugi strani pa se pojavljajo ceneni, večinoma optični senzorji, ki obljubljajo meritev koncentracije aerosolnih delcev v zraku.
 
-Opazovanje aerosolov neposredno s sipanjem infrardeče svetlobe je precej nezanesljivo, saj je količina odbite svetlobe odvisna ne samo od velikosti in števila delcev v opazovanem volumnu, pač pa tudi od njihove sestave (albeda). Teoretični opis sipanja svetlobe na delcih, ki imajo velikost primerljivo valovni dolžini svetlobe, opisuje t.i.~Miejevo sipanje \cite{miejevo}.\todo{link iz Wikipedije.}
+Opazovanje aerosolov neposredno s sipanjem infrardeče svetlobe je precej nezanesljivo, saj je količina odbite svetlobe odvisna ne samo od velikosti in števila delcev v opazovanem volumnu, pač pa tudi od njihove sestave (albeda). Teoretični opis sipanja svetlobe na delcih, ki imajo velikost primerljivo valovni dolžini svetlobe, opisuje t.i.~Miejevo sipanje \cite{mie-scattering}.
 
 Cilj projekta je bil karakterizirati poceni optični senzor in ugotoviti, v kakšni meri se ga uporabiti za ocenjevanje koncentracije aerosolov v zraku. Za ta namen je bilo izbrano tipalo GP2Y1010AU0F podjetja Sharp \cite{sharp-gp2y1010au0f},
 ki spada med pulzne optične senzorje in je zato primeren tudi za mobilno delo in baterijsko napajanje. 
@@ -101,11 +101,19 @@ $$
 \nu = \frac{1}{t_0} \approx \frac{1}{3 \uptau} = 10\,\Hz
 $$
 
-Po vsakem pulzu LED opazujemo odziv fototranzistorja, ki je ustrezno ojačan in oblikovan z vezjem, o katerem pa proizvajalec modula ne poda dodatnih informacij. Proizvajalec kot merilo za koncentracijo aerosolnih delcev podaja napetost na izhodu v določenem trenutku, to je 280\,$\mu$s po sprožitvi pulza na LED.
- "Cas 0,28\,ms približno sovpada z vrhovi izmerjenih izhodnih pulzov, tako da predvidevamo, da je v resnici merilo za koncentracijo aerosolnih delcev kar višina izhodnega pulza. 
-\todo{slika iz PDF proizvajalca}
-Za boljšo karakterizacijo izhodnih pulzov smo želeli shraniti njihove oblike. V ta namen smo izhod senzorja vzor"cili z 10-bitnim ADC (ang. \textit{analog to digital}) pretvornikom MCP3002 \cite{mcp3002}.
+Po vsakem pulzu LED opazujemo odziv fototranzistorja, ki je ustrezno ojačan in oblikovan z vezjem, o katerem pa proizvajalec modula ne poda dodatnih informacij. Proizvajalec kot merilo za koncentracijo aerosolnih delcev podaja napetost na izhodu v določenem trenutku, to je 280\,$\mu$s po sprožitvi pulza na LED (slika \ref{sampling-graph}).
 
+ "Cas 0,28\,ms približno sovpada z vrhovi izmerjenih izhodnih pulzov, tako da predvidevamo, da je v resnici merilo za koncentracijo aerosolnih delcev kar višina izhodnega pulza.
+ 
+ Za boljšo karakterizacijo izhodnih pulzov smo želeli shraniti njihove oblike. V ta namen smo izhod senzorja vzor"cili z 10-bitnim ADC (ang. \textit{analog to digital}) pretvornikom MCP3002 \cite{mcp3002}.
+
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[width=12cm]{sampling_graph.png}
+		\caption{"Casovna shema od"citavanja vrednosti}
+		\label{sampling-graph}
+	\end{center}
+\end{figure}
 
 \begin{figure}[H]
 	\begin{center}
