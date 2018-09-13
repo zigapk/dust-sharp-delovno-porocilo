@@ -194,7 +194,16 @@ Ohi"sje tipala je odprto, da lahko skozenj te"ce zrak. To pa fototranzistor v ti
 
 \subsection{Dolo"canje vrha izhodnega pulza}
 Najvi"sja izmerjena to"cka pulza zaradi premajhne frekvence vzor"cenja ne sovpada vedno s pravim vrhom pulza. 
-Meritev izboljšamo z napenjanjem parabole na najvi"sjih nekaj to"ck. Vsak pulz zajema pribli"zno med 10 in 20 to"ck, tako da se odlo"cimo za napenjanje parabole na najvi"sjih 7.
+Meritev izboljšamo z napenjanjem parabole na najvi"sjih nekaj to"ck. Vsak pulz zajema pribli"zno med 10 in 20 to"ck, tako da se odlo"cimo za napenjanje parabole na najvi"sjih 7 (slika \ref{slika}).
+
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[width=12cm]{parabola-fitted.png}
+		\caption{Parabola, napeta na zgornjih 7 to"ck pulza}
+		\label{dark}
+	\end{center}
+\end{figure}
+
 
 \subsection{Meritve v vakuumu}
 Tipalo postavimo v vakuum ter popolno temo. S tem "zelimo odstraniti vse zunanje dejavnike ter izmeriti izklju"cno odboj svetlobe od ohi"sja. Razsutost meritev v tem primeru prihaja iz negotovosti pri od"citavanju ter neenakomerno svetlih pulzov LED.
@@ -269,7 +278,7 @@ analysis.plot_average_over_time(
 	\label{plot-data}
 \end{figure}
 
-Knji"znica vsebuje tudi funkcijo zara"cunanje korelacije med posameznimi meritvami. Ta je definirana kot produkt posameznih vrednosti, normiran glede na povpre"cno vrednost:
+Knji"znica vsebuje tudi funkcijo zara"cunanje korelacije med posameznimi meritvami. Ta je definirana kot produkt posameznih vrednosti, normiran glede na povpre"cno vrednost \cite{correlation}:
 
 $$
 r = \frac{\sum_{i=1}^{n} (x_i - \overline{x}) (y_i - \overline{y})}{\sqrt{\sum_{i=1}^{n} (x_i - \overline{x})^2} \sqrt{\sum_{i=1}^{n} (y_i - \overline{y})^2}}
