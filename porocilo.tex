@@ -1,4 +1,4 @@
-\documentclass[11pt,a4paper]{article}
+\documentclass[12pt,a4paper]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
@@ -27,23 +27,35 @@
 \DeclareMathOperator{\Hz}{Hz}
 \DeclareMathOperator{\kHz}{kHz}
 
+\setlength{\parindent}{0mm}
+
 \begin{document}
 
-\title{Karakterizacija izhodnih pulzov senzorja Sharp GP2Y1010AU0F pri meritvah koncentracije aerosolov v zraku}
-\author{"Ziga Pata"cko Koderman$^1$ \and Klemen Bu"car$^2$}
-\date{%
-  $^1$FMF, Oddelek za fiziko, Univerza v Ljubljani\\
-  $^2$Institut Jožef Stefan, Ljubljana\\[3ex]
-  Izdaja: Ljubljana, \today
-}
+{\Large\bfseries Institut Jožef Stefan, Ljubljana}\\
+1000 Ljubljana, Jamova 39. Tel.: 01 4773900 / Fax: 01 4773887\\
+F2 - Odsek za fiziko srednjih in nizkih energij
 
-\maketitle
-\thispagestyle{empty}
+\vspace{15ex}
+\hspace*{\fill}IJS-DP-xxxx\\[5ex]
+\hspace*{\fill}September 2018\\
 
+\vspace{10ex}
 \begin{center}
-IJS delovno poro"cilo\\ IJS-DP-xxxxxx
+{\large\bfseries
+Karakterizacija izhodnih pulzov senzorja\\ Sharp GP2Y1010AU0F pri meritvah koncentracije\\ aerosolov v zraku
+}
+\vspace{5ex}
+
+"Ziga Pata"cko Koderman$^1$, Klemen Bu"car$^2$\\[5mm]
+$^1$FMF, Oddelek za fiziko, Univerza v Ljubljani\\
+$^2$Institut Jožef Stefan, Ljubljana\\[8ex]
+DP xxxxxxxxx\\[2ex]
+September 2018
 \end{center}
 
+
+\thispagestyle{empty}
+\newpage
 \tableofcontents
 \pagebreak
 
@@ -92,7 +104,7 @@ Proizvajalec tipala priporo"ca \cite{sharp-gp2y1010au0f} napajanje IR LED preko 
 Karakteristi"cni "cas takega vezja je
 
 $$
-\uptau = RC = 0,033\,s
+\uptau = RC = 0,033\,\mathrm{s}.
 $$
 
 Kar nam omeji frekvenco delovanja na približno (pustimo tri karakteristi"cne "case za napolnjenje kondenzatorja):
@@ -105,12 +117,12 @@ Po vsakem pulzu LED opazujemo odziv fototranzistorja, ki je ustrezno ojačan in 
 
  "Cas 0,28\,ms približno sovpada z vrhovi izmerjenih izhodnih pulzov, tako da predvidevamo, da je v resnici merilo za koncentracijo aerosolnih delcev kar višina izhodnega pulza.
  
- Za boljšo karakterizacijo izhodnih pulzov smo želeli shraniti njihove oblike. V ta namen smo izhod senzorja vzor"cili z 10-bitnim ADC (ang. \textit{analog to digital}) pretvornikom MCP3002 \cite{mcp3002}.
+ Za boljšo karakterizacijo izhodnih pulzov smo želeli shraniti njihove oblike. V ta namen smo izhod senzorja vzor"cili z 10-bitnim ADC (ang. \textit{analog to digital}) pretvornikom MCP3002 \cite{mcp3002}. Pri tem največja vrednost ADC pretvorbe (1023) ustreza napetosti 5\,V.
 
 \begin{figure}[H]
 	\begin{center}
-		\includegraphics[width=12cm]{sampling_graph.png}
-		\caption{"Casovna shema od"citavanja vrednosti}
+		\includegraphics[width=8cm]{sampling_graph.png}
+		\caption{"Casovni  potek od"citavanja vrednosti izhodnega pulza, kot ga priporoča proizvajalec modula.}
 		\label{sampling-graph}
 	\end{center}
 \end{figure}
@@ -118,7 +130,7 @@ Po vsakem pulzu LED opazujemo odziv fototranzistorja, ki je ustrezno ojačan in 
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[width=12cm]{integration-scheme.png}
-		\caption{Primer priklopa tipala}
+		\caption{Primer priklopa tipala kot ga predlaga proizvajalec.}
 		\label{integration-scheme}
 	\end{center}
 \end{figure}
@@ -131,13 +143,13 @@ Celoten proces, ki zajema:
 \end{itemize}
 
 krmili mikrora"cunalnik Raspberry Pi \cite{rbpi-wiki}. Meritvam pripi"semo tudi datum in "cas merjenja. V ta namen uporabimo "se RTC (ang. \textit{real time clock}) modul, saj Raspberry Pi nima baterijskega napajanja, ki bi zagotavljalo pravilno uro tudi po izklopu napajanja. Elektronska shema vezja je na sliki \ref{sl:shema-vezja}.
-Največja hitrost vzorčenja oblike pulza, ki jo upemo doseči, je $ \approx $ 35,7\,kHz. Vzorčene vrednosti posameznega pulza shranimo kot mno"zico 50 to"ck, v tabelo znotraj HDF5 datoteke \cite{hdf5}.
+Največja hitrost vzorčenja oblike pulza, ki jo uspemo doseči, je $ \approx $ 35,7\,kHz. Vzorčene vrednosti posameznega pulza shranimo kot mno"zico 50 to"ck v tabelo znotraj HDF5 datoteke \cite{hdf5}.
 
 
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[width=12cm]{scheme.png}
-		\caption{Shema vezja}
+		\caption{Shema vezja vzorčevalnega sistema.}
 		\label{sl:shema-vezja}
 	\end{center}
 \end{figure}
@@ -146,7 +158,7 @@ Največja hitrost vzorčenja oblike pulza, ki jo upemo doseči, je $ \approx $ 3
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[width=12cm]{pulses_old.png}
-		\caption{Primer 10 odzivov fototranzistorja pri vzor"cenju 50 to"ck pri nepretrganem zaporednem vzorčenju. Opazimo izgubo vzorčevalnih točk in spremenjeno obliko nekaterih pulzov.}
+		\caption{Primer 10 odzivov fototranzistorja pri vzor"cenju 50 to"ck pri nepretrganem zaporednem vzorčenju. Opazimo izgubo vzorčevalnih točk in spremenjeno obliko nekaterih pulzov. Na abscisi je zaporedna številka vzorčene točke, na ordinati pa surova ADC pretvorba.}
 		\label{pulses-old}
 	\end{center}
 \end{figure}
@@ -161,12 +173,12 @@ Zaradi variabilne obremenitve procesorja na krmilniku Raspberry Pi dobi proces z
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[width=12cm]{aligned.png}
-		\caption{Pulzi po "casovni poravnani izmerjenih to"ck v $\mu$s}
+		\caption{Podobno kot slika \ref{pulses-old}, le da upoštevamo časovne značke posameznih točk s približno $\mu$s natančnostjo. Abscisa je časovna os v $\mu$s, ordinata surova ADC pretvorba.}
 		\label{aligned}
 	\end{center}
 \end{figure}
 
-\subsection{Velikost vzorca}
+\subsection{Gibanje zraka skozi tipalo}
 Pri opravljanju meritve ne poznamo natan"cnega pretoka zraka skozi tipalo. Zana"samo se na konvekcijsko gibanje zraka. Da preverimo, ali to zadostuje za potrebe meritve, pretok prisilno pove"camo z ventilatorjem ter opazujemo morebitne spremembe. Ne opazimo nobenih sprememb ter sklepamo, da je konvekcijski pretok zraka dovolj"sen. Pri našem tipu meritve, kjer ves čas opazujemo enak volumen zraka, je gibanje zraka pomembno le za zagotavljenje prave koncentracije delcev v opazovanem volumnu. 
 
 \subsection{Svetlobne motnje iz okolice}
@@ -175,12 +187,12 @@ Ohi"sje tipala je odprto, da lahko skozenj te"ce zrak. To pa fototranzistor v ti
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[width=12cm]{dark.png}
-		\caption{Pulzi, izmerjeni v temi v $\mu$s}
+		\caption{Podobno kot slika \ref{aligned}, le da je meritev potekala v čisti temi.}
 		\label{dark}
 	\end{center}
 \end{figure}
 
-\subsection{Dolo"canje vrha}
+\subsection{Dolo"canje vrha izhodnega pulza}
 Najvi"sja izmerjena to"cka pulza zaradi premajhne frekvence vzor"cenja ne sovpada vedno s pravim vrhom pulza. 
 Meritev izboljšamo z napenjanjem parabole na najvi"sjih nekaj to"ck. Vsak pulz zajema pribli"zno med 10 in 20 to"ck, tako da se odlo"cimo za napenjanje parabole na najvi"sjih 7.
 
@@ -270,7 +282,7 @@ Korelacije med osnovnimi meritvami in meritvami referen"cnega tipala se gibljejo
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[width=16cm]{comparison.pdf}
-		\caption{Primerjava meritev z referen"cnim tipalom}
+		\caption{Primerjava meritev z referen"cnim tipalom. Čas je v formatu mesec-dan ura (meritve so bile opravljene v med 20.~in 23.~julijem). }
 		\label{comparison}
 	\end{center}
 \end{figure}
@@ -341,5 +353,8 @@ Vsa izvorna koda je na voljo pri avtorjih (\emph{klemen.bucar@ijs.si}).
 \clearpage
 
 \section{Literatura}
+
+\todo[inline]{Reference urediti tako, da gredo v tekstu po vrsti [1], [2], ....}
+
 \printbibliography[heading=none]
 \end{document}
