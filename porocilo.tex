@@ -15,9 +15,10 @@
 \usepackage{fullpage}
 \usepackage{xparse}
 \usepackage{icomma}
-\usepackage[backend=bibtex]{biblatex}
-\addbibresource{viri.bib}
+\usepackage[backend=bibtex,style=numeric,sorting=none]{biblatex}
 \usepackage[title]{appendix}
+
+\addbibresource{viri.bib}
 
 % code styling
 \lstset{language=Python,keywordstyle={\bfseries \color{blue}}}
@@ -299,7 +300,7 @@ Program "steje pulze v spreminjajo"cem se intervalu ter jih primerja z meritvami
 \section{Primerjava z referen"cnim instrumentom}
 Dobljene mertive primerjamo z referen"cnim instrumentom Grimm Mini-LAS 11-R \cite{grimm-min-las}. Ta instrument vrne koncenctracije trdnih delcev po posamzenih velikostih.
 
-Korelacije med osnovnimi meritvami \todo{kaj so to osnovne meritve?} in meritvami referen"cnega tipala se gibljejo okoli 0,7. Primer grafa je viden na sliki \ref{comparison}.
+Korelacije med meritvami tipala Sharp in meritvami referen"cnega tipala se gibljejo okoli 0,7. Primer grafa je viden na sliki \ref{comparison}.
 
 \begin{figure}[H]
 	\begin{center}
@@ -357,8 +358,7 @@ Za analizo uporabimo "se prej opisano metodo "stetja vrhov na posameznem interva
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[width=16cm]{hist_comparison.pdf}
-\todo[inline]{Kakšno časovno popvprečenje je bilo tu na RPi?}
-		\caption{Primerjava meritev z referen"cnim tipalom po histogramski analizi, ko opazujemo samo pulze ustrenih višin.}
+		\caption{Primerjava meritev z referen"cnim tipalom po histogramski analizi, ko opazujemo samo pulze ustreznih višin (pri 10-minutnem povpre"cenju).}
 		\label{hist_comparison}
 	\end{center}
 \end{figure}
@@ -377,8 +377,6 @@ Vsa izvorna koda je na voljo pri avtorjih (\emph{klemen.bucar@ijs.si}).
 \clearpage
 
 \section{Literatura}
-
-\todo[inline]{Reference urediti tako, da gredo v tekstu po vrsti [1], [2], ....}
 
 \printbibliography[heading=none]
 \end{document}
