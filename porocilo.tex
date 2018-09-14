@@ -36,7 +36,7 @@
 F2 - Odsek za fiziko srednjih in nizkih energij
 
 \vspace{15ex}
-\hspace*{\fill}IJS-DP-xxxx\\[5ex]
+\hspace*{\fill}IJS-DP-12618\\[5ex]
 \hspace*{\fill}September 2018\\
 
 \vspace{10ex}
@@ -49,7 +49,7 @@ Karakterizacija izhodnih pulzov senzorja\\ Sharp GP2Y1010AU0F pri meritvah konce
 "Ziga Pata"cko Koderman$^1$, Klemen Bu"car$^2$\\[5mm]
 $^1$FMF, Oddelek za fiziko, Univerza v Ljubljani\\
 $^2$Institut Jožef Stefan, Ljubljana\\[8ex]
-DP xxxxxxxxx\\[2ex]
+DP 12618\\[2ex]
 September 2018
 \end{center}
 
@@ -68,10 +68,13 @@ Opazovanje aerosolov neposredno s sipanjem infrardeče svetlobe je precej nezane
 Cilj projekta je bil karakterizirati poceni optični senzor in ugotoviti, v kakšni meri se ga uporabiti za ocenjevanje koncentracije aerosolov v zraku. Za ta namen je bilo izbrano tipalo GP2Y1010AU0F podjetja Sharp \cite{sharp-gp2y1010au0f},
 ki spada med pulzne optične senzorje in je zato primeren tudi za mobilno delo in baterijsko napajanje. 
 
-Projekt je v okviru študentskega dela opravil Žiga Patačko Koderman (programi za analizo podatkov, analiziranje podatkov, meritve v vakuumu). Na projektu je v 2017 delala tudi Aurora Makovac (programi za zajemanje in shranjevanje meritev).
 
  Slepa meritev PM2.5 in PM10 po navodilih proizvajalca modula ne vrne smiselnih rezultatov.
 V projektu je bilo ugotovljeno, da izbrano tipalo bolje zazna majhne delce ($d < 1\,\mu$m) v primerjavi z večjimi. Z ločevanjem pulzev po višini in ustreznim filtriranjem je možno dobiti boljšo korelacijo z referenčnim instrumentom. Dodatno bo potrebno opraviti meritve ozadja in preveriti stabilnost LED pulzov (na primer meritve v boljšem vakuumu, meritve LED bliskov z zunanjim spektrometrom). 
+
+\bigskip
+Projekt je v okviru študentskega dela opravil Žiga Patačko Koderman (programi za analizo podatkov, analiziranje in primerjava podatkov, meritve v vakuumu, meritve z refenčnim instrumentom). 
+Na projektu je v 2017 delala tudi Aurora Makovac (programi za zajemanje in shranjevanje meritev).
 
 \begin{figure}[bh!]
 	\begin{center}
@@ -194,13 +197,15 @@ Ohi"sje tipala je odprto, da lahko skozenj te"ce zrak. To pa fototranzistor v ti
 
 \subsection{Dolo"canje vrha izhodnega pulza}
 Najvi"sja izmerjena to"cka pulza zaradi premajhne frekvence vzor"cenja ne sovpada vedno s pravim vrhom pulza. 
-Meritev izboljšamo z napenjanjem parabole na najvi"sjih nekaj to"ck. Vsak pulz zajema pribli"zno med 10 in 20 to"ck, tako da se odlo"cimo za napenjanje parabole na najvi"sjih 7 (slika \ref{slika}).
+Meritev izboljšamo z napenjanjem parabole na najvi"sjih nekaj to"ck. Vsak pulz zajema pribli"zno med 10 in 20 to"ck, tako da se odlo"cimo za napenjanje parabole na najvi"sjih 7 (slika \ref{sl:parabola}).
+
 
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[width=12cm]{parabola-fitted.png}
-		\caption{Parabola, napeta na zgornjih 7 to"ck pulza}
-		\label{dark}
+\todo[inline]{X skala na grafu naj gre le do 1000. Meritve (modro) naj bodo samo točke. Po potrebi še zoom po Y, da se dobro vidijo točke okoli vrha in parabola.}
+		\caption{Parabola, napeta na zgornjih 7 to"ck pulza.}
+		\label{sl:parabola}
 	\end{center}
 \end{figure}
 
@@ -208,7 +213,7 @@ Meritev izboljšamo z napenjanjem parabole na najvi"sjih nekaj to"ck. Vsak pulz 
 \subsection{Meritve v vakuumu}
 Tipalo postavimo v vakuum ter popolno temo. S tem "zelimo odstraniti vse zunanje dejavnike ter izmeriti izklju"cno odboj svetlobe od ohi"sja. Razsutost meritev v tem primeru prihaja iz negotovosti pri od"citavanju ter neenakomerno svetlih pulzov LED.
 
-Razlike med meritvami na prostem in v vakuumu ($p$=15\,mbar) ne zaznamo. Sklepamo, da potrebujemo "se ni"zji pritisk.
+Razlike med meritvami na prostem in v vakuumu ($p$=15\,mbar) ne zaznamo. Predlagamo ponovne meritve pri ni"zjem pritisku.
 
 \subsection{Analiza podatkov}
 
@@ -274,19 +279,19 @@ analysis.plot_average_over_time(
 	)
 
 	\end{lstlisting}
-	\caption{Primer izvorne kode za nalagane obdelanih podatkov iz datoteke dump.json ter risanje grafov}
+	\caption{Primer izvorne kode za nalaganje obdelanih podatkov iz datoteke dump.json ter risanje grafov}
 	\label{plot-data}
 \end{figure}
 
-Knji"znica vsebuje tudi funkcijo zara"cunanje korelacije med posameznimi meritvami. Ta je definirana kot produkt posameznih vrednosti, normiran glede na povpre"cno vrednost \cite{correlation}:
+Knji"znica vsebuje tudi funkcijo za ra"cunanje korelacije med posameznimi meritvami. Izrazimo jo s Pearsonovim korelacijskim koeficientom \cite{correlation}:
 
 $$
-r = \frac{\sum_{i=1}^{n} (x_i - \overline{x}) (y_i - \overline{y})}{\sqrt{\sum_{i=1}^{n} (x_i - \overline{x})^2} \sqrt{\sum_{i=1}^{n} (y_i - \overline{y})^2}}
+r = \frac{\sum_{i=1}^{n} (x_i - \overline{x}) (y_i - \overline{y})}{\sqrt{\sum_{i=1}^{n} (x_i - \overline{x})^2} \sqrt{\sum_{i=1}^{n} (y_i - \overline{y})^2}}.
 $$
 
 
 \subsubsection{Histogramska analiza}
-Odziv fototranzistorja na pulz LED ni odvisen samo od gostote trdnih delcev v zraku. Velikost delca igra veliko vlogo. Vi"sina pulza je verjetneje povezana z velikostjo zaznanih delcev kot z gostoto delcev v zraku. To pomeni, da lahko pre"stejemo pulze razli"cnih vi"sin znotraj dolo"cenega intervala in jih primerjamo z meritvami razli"cno velikih delcev referen"cnega tipala.
+Odziv fototranzistorja na pulz LED ni odvisen samo od gostote trdnih delcev v zraku, pač pa tudi od velikosti delca. Vi"sina pulza je verjetneje povezana z velikostjo zaznanih delcev kot z gostoto delcev v zraku. To pomeni, da lahko pre"stejemo pulze razli"cnih vi"sin znotraj dolo"cenega intervala in jih primerjamo z meritvami referen"cnega instrumenta, ki delce sortira po velikosti.
 
 Program "steje pulze v spreminjajo"cem se intervalu ter jih primerja z meritvami razli"cno velikih delcev. Tako poi"s"ce intervale, ki najbolj ustrezajo posameznim velikostim delcev iz meritev referen"cnega tipala. Rezultati so razvidni iz tabele \ref{table:correlations}.
 
@@ -294,11 +299,12 @@ Program "steje pulze v spreminjajo"cem se intervalu ter jih primerja z meritvami
 \section{Primerjava z referen"cnim instrumentom}
 Dobljene mertive primerjamo z referen"cnim instrumentom Grimm Mini-LAS 11-R \cite{grimm-min-las}. Ta instrument vrne koncenctracije trdnih delcev po posamzenih velikostih.
 
-Korelacije med osnovnimi meritvami in meritvami referen"cnega tipala se gibljejo okoli 0,7. Primer grafa je viden na sliki \ref{comparison}.
+Korelacije med osnovnimi meritvami \todo{kaj so to osnovne meritve?} in meritvami referen"cnega tipala se gibljejo okoli 0,7. Primer grafa je viden na sliki \ref{comparison}.
 
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[width=16cm]{comparison.pdf}
+\todo[inline]{Ni jasno, kaj je črna krivulja.}
 		\caption{Primerjava meritev z referen"cnim tipalom. Čas je v formatu mesec-dan ura (meritve so bile opravljene v med 20.~in 23.~julijem). }
 		\label{comparison}
 	\end{center}
@@ -309,7 +315,7 @@ Za analizo uporabimo "se prej opisano metodo "stetja vrhov na posameznem interva
 \begin{table}[H]
 	\centering
 	\begin{tabular}{lll}
-		velikost [$\mu m$] & korelacija & interval \\
+		velikost [$\mu m$] & $r$ & interval \\
 		\hline
 		0,25 & 0,94 & 68 - 72 \\
 		0,28 & 0,94 & 68 - 72 \\
@@ -343,7 +349,7 @@ Za analizo uporabimo "se prej opisano metodo "stetja vrhov na posameznem interva
 		30,00 & 0,66 & 64
 		
 	\end{tabular}
-	\caption{Intervali korelacij pri primerjavi histogramske analize podatkov z referen"cnim tipalom}
+	\caption{Pearsonov korelacijski koeficient $r$ med referenčnim instrumentom in opazovanim tipalom za različne intervale višine pulzov.}
 	\label{table:correlations}
 	\def\arraystretch{1}
 \end{table}
@@ -351,7 +357,8 @@ Za analizo uporabimo "se prej opisano metodo "stetja vrhov na posameznem interva
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[width=16cm]{hist_comparison.pdf}
-		\caption{Primerjava meritev z referen"cnim tipalom po histogramski analizi}
+\todo[inline]{Kakšno časovno popvprečenje je bilo tu na RPi?}
+		\caption{Primerjava meritev z referen"cnim tipalom po histogramski analizi, ko opazujemo samo pulze ustrenih višin.}
 		\label{hist_comparison}
 	\end{center}
 \end{figure}
