@@ -62,25 +62,25 @@ September 2018
 
 \section{Povzetek}
 
-Nadzor kvaliete zraka v notranjih in zunanjih prostorih postaja čedalje pomembnejši tako zaradi naravovarstvenega kot tudi zdravstvenega vidika. Certificirane naprave, ki določajo koncentracijo aerosolnih delcev v zraku so še vedno izjemno drage in nedostopne, po drugi strani pa se pojavljajo ceneni, večinoma optični senzorji, ki obljubljajo meritev koncentracije aerosolnih delcev v zraku.
+Nadzor kvalitete zraka v notranjih in zunanjih prostorih postaja čedalje pomembnejši tako z naravovarstvenega kot tudi z zdravstvenega vidika. Certificirane naprave, ki določajo koncentracijo aerosolnih delcev v zraku, so še vedno izjemno drage in nedostopne, po drugi strani pa se pojavljajo ceneni, večinoma optični senzorji, ki obljubljajo meritev koncentracije aerosolnih delcev v zraku.
 
-Opazovanje aerosolov neposredno s sipanjem infrardeče svetlobe je precej nezanesljivo, saj je količina odbite svetlobe odvisna ne samo od velikosti in števila delcev v opazovanem volumnu, pač pa tudi od njihove sestave (albeda). Teoretični opis sipanja svetlobe na delcih, ki imajo velikost primerljivo valovni dolžini svetlobe, opisuje t.i.~Miejevo sipanje \cite{mie-scattering}.
+Opazovanje aerosolov neposredno s sipanjem infrardeče svetlobe je precej nezanesljivo, saj je količina odbite svetlobe odvisna ne samo od velikosti in števila delcev v opazovanem volumnu, pač pa tudi od njihove sestave (albeda). Teoretični opis sipanja svetlobe na delcih, ki imajo velikost primerljivo valovni dolžini svetlobe, opisuje t. i.~Miejevo sipanje \cite{mie-scattering}.
 
-Cilj projekta je bil karakterizirati poceni optični senzor in ugotoviti, v kakšni meri se ga uporabiti za ocenjevanje koncentracije aerosolov v zraku. Za ta namen je bilo izbrano tipalo GP2Y1010AU0F podjetja Sharp \cite{sharp-gp2y1010au0f},
+Cilj projekta je bil karakterizirati poceni optični senzor in ugotoviti, v kakšni meri ga je mogo"ce uporabiti za ocenjevanje koncentracije aerosolov v zraku. Za ta namen je bilo izbrano tipalo GP2Y1010AU0F podjetja Sharp \cite{sharp-gp2y1010au0f},
 ki spada med pulzne optične senzorje in je zato primeren tudi za mobilno delo in baterijsko napajanje. 
 
 
  Slepa meritev PM2.5 in PM10 po navodilih proizvajalca modula ne vrne smiselnih rezultatov.
-V projektu je bilo ugotovljeno, da izbrano tipalo bolje zazna majhne delce ($d < 1\,\mu$m) v primerjavi z večjimi. Z ločevanjem pulzev po višini in ustreznim filtriranjem je možno dobiti boljšo korelacijo z referenčnim instrumentom. Dodatno bo potrebno opraviti meritve ozadja in preveriti stabilnost LED pulzov (na primer meritve v boljšem vakuumu, meritve LED bliskov z zunanjim spektrometrom). 
+V projektu je bilo ugotovljeno, da izbrano tipalo bolje zazna majhne delce ($d < 1\,\mu$m) v primerjavi z večjimi. Z ločevanjem pulzov po višini in ustreznim filtriranjem je možno dobiti boljšo korelacijo z referenčnim instrumentom. Dodatno bo treba opraviti meritve ozadja in preveriti stabilnost LED pulzov (na primer meritve v boljšem vakuumu, meritve LED bliskov z zunanjim spektrometrom). 
 
 \bigskip
-Projekt je v okviru študentskega dela opravil Žiga Patačko Koderman (programi za analizo podatkov, analiziranje in primerjava podatkov, meritve v vakuumu, meritve z refenčnim instrumentom). 
+Projekt je v okviru študentskega dela opravil Žiga Patačko Koderman (programi za analizo podatkov, analiziranje in primerjava podatkov, meritve v vakuumu, meritve z referenčnim instrumentom). 
 Na projektu je v 2017 delala tudi Aurora Makovac (programi za zajemanje in shranjevanje meritev).
 
 \begin{figure}[bh!]
 	\begin{center}
 		\includegraphics[width=8cm]{setup_view.jpg}
-		\caption{Raspberry Pi s priklju"cenim tipalom Sharp GP2Y1010AU0F}
+		\caption{Raspberry Pi s priklju"cenim tipalom Sharp GP2Y1010AU0F.}
 		\label{setup-view}
 	\end{center}
 \end{figure}
@@ -98,7 +98,7 @@ Tipalo Sharp GP2Y1010AU0F \cite{sharp-gp2y1010au0f} sestavljata LED, ki oddaja I
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[width=12cm]{sensor-scheme.png}
-		\caption{Skica tipala GP2Y1010AU0F}
+		\caption{Skica tipala GP2Y1010AU0F.}
 		\label{sensor-scheme}
 	\end{center}
 \end{figure}
@@ -108,7 +108,7 @@ Proizvajalec tipala priporo"ca \cite{sharp-gp2y1010au0f} napajanje IR LED preko 
 Karakteristi"cni "cas takega vezja je
 
 $$
-\uptau = RC = 0,033\,\mathrm{s}.
+\uptau = RC = 0,033\,\mathrm{s}
 $$
 
 Kar nam omeji frekvenco delovanja na približno (pustimo tri karakteristi"cne "case za napolnjenje kondenzatorja):
@@ -134,7 +134,7 @@ Po vsakem pulzu LED opazujemo odziv fototranzistorja, ki je ustrezno ojačan in 
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[width=12cm]{integration-scheme.png}
-		\caption{Primer priklopa tipala kot ga predlaga proizvajalec.}
+		\caption{Primer priklopa tipala, kot ga predlaga proizvajalec.}
 		\label{integration-scheme}
 	\end{center}
 \end{figure}
@@ -147,7 +147,7 @@ Celoten proces, ki zajema:
 \end{itemize}
 
 krmili mikrora"cunalnik Raspberry Pi \cite{rbpi-wiki}. Meritvam pripi"semo tudi datum in "cas merjenja. V ta namen uporabimo "se RTC (ang. \textit{real time clock}) modul, saj Raspberry Pi nima baterijskega napajanja, ki bi zagotavljalo pravilno uro tudi po izklopu napajanja. Elektronska shema vezja je na sliki \ref{sl:shema-vezja}.
-Največja hitrost vzorčenja oblike pulza, ki jo uspemo doseči, je $ \approx $ 35,7\,kHz. Vzorčene vrednosti posameznega pulza shranimo kot mno"zico 50 to"ck v tabelo znotraj HDF5 datoteke \cite{hdf5}.
+Največja hitrost vzorčenja oblike pulza, ki nam jo uspe doseči, je $ \approx $ 35,7\,kHz. Vzorčene vrednosti posameznega pulza shranimo kot mno"zico 50 to"ck v tabelo znotraj HDF5 datoteke \cite{hdf5}.
 
 
 \begin{figure}[H]
@@ -183,7 +183,7 @@ Zaradi variabilne obremenitve procesorja na krmilniku Raspberry Pi dobi proces z
 \end{figure}
 
 \subsection{Gibanje zraka skozi tipalo}
-Pri opravljanju meritve ne poznamo natan"cnega pretoka zraka skozi tipalo. Zana"samo se na konvekcijsko gibanje zraka. Da preverimo, ali to zadostuje za potrebe meritve, pretok prisilno pove"camo z ventilatorjem ter opazujemo morebitne spremembe. Ne opazimo nobenih sprememb ter sklepamo, da je konvekcijski pretok zraka dovolj"sen. Pri našem tipu meritve, kjer ves čas opazujemo enak volumen zraka, je gibanje zraka pomembno le za zagotavljenje prave koncentracije delcev v opazovanem volumnu. 
+Pri opravljanju meritve ne poznamo natan"cnega pretoka zraka skozi tipalo. Zana"samo se na konvekcijsko gibanje zraka. Da preverimo, ali to zadostuje za potrebe meritve, pretok prisilno pove"camo z ventilatorjem ter opazujemo morebitne spremembe. Ne opazimo nobenih sprememb ter sklepamo, da je konvekcijski pretok zraka dovolj"sen. Pri našem tipu meritve, kjer ves čas opazujemo enak volumen zraka, je gibanje zraka pomembno le za zagotavljanje prave koncentracije delcev v opazovanem volumnu. 
 
 \subsection{Svetlobne motnje iz okolice}
 Ohi"sje tipala je odprto, da lahko skozenj te"ce zrak. To pa fototranzistor v tipalu izpostavi zunanjim svetlobnim virom. Ti lahko na meritve vplivajo v obliki "suma ali sistemati"cne napake (na primer razlika med dnevom in no"cjo). To preverimo s postavitvijo tipala v popolno temo. Opazimo, da so vrhovi pulzov poravnani bistveno bolje (slika \ref{dark}). 
@@ -256,7 +256,7 @@ measurements['rbpi3'] = rbpi3
 with open('dump.json', 'w') as f:
 	f.write(json_tricks.dumps(measurements))
 	\end{lstlisting}
-	\caption{Primer izvorne kode za nalaganje, obdelavo podatkov ter shranjevanje v datoteko dump.json}
+	\caption{Primer izvorne kode za nalaganje, obdelavo podatkov ter shranjevanje v datoteko dump.json.}
 	\label{dump-data}
 \end{figure}
 
@@ -279,14 +279,14 @@ analysis.plot_average_over_time(
 	)
 
 	\end{lstlisting}
-	\caption{Primer izvorne kode za nalaganje obdelanih podatkov iz datoteke dump.json ter risanje grafov}
+	\caption{Primer izvorne kode za nalaganje obdelanih podatkov iz datoteke dump.json ter risanje grafov.}
 	\label{plot-data}
 \end{figure}
 
 Knji"znica vsebuje tudi funkcijo za ra"cunanje korelacije med posameznimi meritvami. Izrazimo jo s Pearsonovim korelacijskim koeficientom \cite{correlation}:
 
 $$
-r = \frac{\sum_{i=1}^{n} (x_i - \overline{x}) (y_i - \overline{y})}{\sqrt{\sum_{i=1}^{n} (x_i - \overline{x})^2} \sqrt{\sum_{i=1}^{n} (y_i - \overline{y})^2}}.
+r = \frac{\sum_{i=1}^{n} (x_i - \overline{x}) (y_i - \overline{y})}{\sqrt{\sum_{i=1}^{n} (x_i - \overline{x})^2} \sqrt{\sum_{i=1}^{n} (y_i - \overline{y})^2}}
 $$
 
 
@@ -297,31 +297,31 @@ Program "steje pulze v spreminjajo"cem se intervalu ter jih primerja z meritvami
 
 \clearpage
 \section{Primerjava z referen"cnim instrumentom}
-Dobljene mertive primerjamo z referen"cnim instrumentom Grimm Mini-LAS 11-R \cite{grimm-min-las}. Ta instrument vrne koncenctracije trdnih delcev po posamzenih velikostih.
+Dobljene meritve primerjamo z referen"cnim instrumentom Grimm Mini-LAS 11-R \cite{grimm-min-las}. Ta instrument vrne koncentracije trdnih delcev po posameznih velikostih.
 
 Korelacije med meritvami tipala Sharp in meritvami referen"cnega tipala se gibljejo okoli 0,7. Primer grafa je viden na sliki \ref{comparison}.
 
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[width=16cm]{comparison.pdf}
-		\caption{Primerjava meritev z referen"cnim tipalom. Čas je v formatu mesec-dan ura (meritve so bile opravljene v med 20.~in 23.~julijem). }
+		\caption{Primerjava meritev z referen"cnim tipalom: "cas je v formatu mesec-dan ura (meritve so bile opravljene v med 20.~in 23.~julijem 2018). }
 		\label{comparison}
 	\end{center}
 \end{figure}
 
-Za analizo uporabimo "se prej opisano metodo "stetja vrhov na posameznem intervalu. Program izpi"se tabelo \ref{table:correlations}, iz katere je razvidno, da s "stetjem vrhov na pravem intervalu dobimo korelacije, ki presegajo 0,9. To potrjuje tezo, da se meritve tipala Sharp GP2Y1010AU0F najbolje korelirajo z koncentracijami delcev velikosti med 0,25 in 0,50\,$\mu$m. 
+Za analizo uporabimo "se prej opisano metodo "stetja vrhov na posameznem intervalu. Program izpi"se tabelo \ref{table:correlations}, iz katere je razvidno, da s "stetjem vrhov na pravem intervalu dobimo korelacije, ki presegajo 0,9. To potrjuje tezo, da se meritve tipala Sharp GP2Y1010AU0F najbolje korelirajo s koncentracijami delcev velikosti med 0,25 in 0,50\,$\mu$m. 
 
 \begin{table}[H]
 	\centering
 	\begin{tabular}{lll}
 		velikost [$\mu m$] & $r$ & interval \\
 		\hline
-		0,25 & 0,94 & 68 - 72 \\
-		0,28 & 0,94 & 68 - 72 \\
-		0,30 & 0,93 & 68 - 72 \\
-		0,35 & 0,93 & 76 - 84 \\
-		0,40 & 0,96 & 76 - 84 \\
-		0,45 & 0,91 & 76 - 84 \\
+		0,25 & 0,94 & 68-72 \\
+		0,28 & 0,94 & 68-72 \\
+		0,30 & 0,93 & 68-72 \\
+		0,35 & 0,93 & 76-84 \\
+		0,40 & 0,96 & 76-84 \\
+		0,45 & 0,91 & 76-84 \\
 		0,50 & 0,91 & 80 \\
 		0,58 & 0,74 & 80 \\
 		0,65 & 0,39 & 80 \\
@@ -367,7 +367,7 @@ Za analizo uporabimo "se prej opisano metodo "stetja vrhov na posameznem interva
 	\section{Izvorna koda}
 
 Programska koda za proženje svetlobnega bliska, zajemanje meritve in shranjevanje v datoteko teče na plošči RaspberryPi in je pisana v programskem jeziku C.
-Obdelavo shranjenih meritv opravimo s kodo pisano v programskem jeziku Python. 
+Obdelavo shranjenih meritev opravimo s kodo, pisano v programskem jeziku Python. 
 Vsa izvorna koda je na voljo pri avtorjih (\emph{klemen.bucar@ijs.si}).
 
 
